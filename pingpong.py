@@ -18,7 +18,8 @@ pygame.display.flip()
 running = True
 pointsLeft = 0
 font = pygame.font.Font(None, 36) 
-font2 = pygame.font.Font(None, 20) 
+font2 = pygame.font.Font(None, 20)
+overAllSpeed=180
 pointsRight = 0
 def chooseMode():
     text_surface = font.render("Choose your mode", True, (255,255,255))
@@ -78,10 +79,7 @@ while running:
                 touches = "right"
         if touches:
             force.x = -force.x
-            if force.x < 0:
-                force.x -= 1
-            else:
-                force.x += 1
+            overAllSpeed += 10
             if touches == "right" and ballPos.y < rightPane.bottom-50:
                 force.y += random.randint(-3,-1)
                 pointsRight += 1
@@ -95,6 +93,7 @@ while running:
             ballPos.y = 250
             force.x = random.randint(1,3)
             force.y = 0
+            overAllSpeed = 180
         text_surface = font.render("Points: "+str(pointsLeft), True, (255,0,0))
         screen.blit(text_surface, (20,20))
         text_surface = font.render("Points: "+str(pointsRight), True, (0,0,255))
@@ -131,10 +130,7 @@ while running:
                 touches = "right"
         if touches:
             force.x = -force.x
-            if force.x < 0:
-                force.x -= 1
-            else:
-                force.x += 1
+            overAllSpeed += 10
             if touches == "right" and ballPos.y > rightPane.bottom-50 or touches == "left" and ballPos.y > leftPane.bottom-50:
                 force.y += random.randint(1,3)
             if touches == "right" and ballPos.y < rightPane.bottom-50 or touches == "left" and ballPos.y < leftPane.bottom-50:
@@ -147,12 +143,14 @@ while running:
             ballPos.y = 250
             force.x = randForce()
             force.y = 0
+            overAllSpeed = 180
         if ballPos.x > 800:
             pointsLeft += 1
             ballPos.x = 400
             ballPos.y = 250
             force.x = randForce()
             force.y = 0
+            overAllSpeed = 180
         text_surface = font.render("Points: "+str(pointsLeft), True, (255,0,0))
         screen.blit(text_surface, (20,20))
         text_surface = font.render("Points: "+str(pointsRight), True, (0,0,255))
@@ -161,6 +159,6 @@ while running:
             
         pygame.draw.circle(screen, (0,0,0), ballPos, 5)
         pygame.display.flip()
-        clock.tick(180)
+        clock.tick(overAllSpeed)
 
 pygame.quit()
