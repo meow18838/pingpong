@@ -79,7 +79,7 @@ while running:
                 touches = "right"
         if touches:
             force.x = -force.x
-            overAllSpeed += 10
+            overAllSpeed += 10 * pointsRight
             if touches == "right" and ballPos.y < rightPane.bottom-50:
                 force.y += random.randint(-3,-1)
                 pointsRight += 1
@@ -102,7 +102,7 @@ while running:
             
         pygame.draw.circle(screen, (0,0,0), ballPos, 5)
         pygame.display.flip()
-        clock.tick(180)
+        clock.tick(overAllSpeed)
     elif mode == "2player":
         for e in pygame.event.get():
             if e.type == pygame.QUIT:
@@ -130,7 +130,7 @@ while running:
                 touches = "right"
         if touches:
             force.x = -force.x
-            overAllSpeed += 10
+            overAllSpeed += 25
             if touches == "right" and ballPos.y > rightPane.bottom-50 or touches == "left" and ballPos.y > leftPane.bottom-50:
                 force.y += random.randint(1,3)
             if touches == "right" and ballPos.y < rightPane.bottom-50 or touches == "left" and ballPos.y < leftPane.bottom-50:
